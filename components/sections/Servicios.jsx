@@ -45,7 +45,7 @@ const servicios = [
   },
 ];
 
-function AnimatedSection({ children }) {
+function AnimatedCard({ children, delay = 0 }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -64,7 +64,7 @@ function AnimatedSection({ children }) {
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(40px)",
-        transition: "opacity 0.6s ease, transform 0.6s ease",
+        transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`,
       }}
     >
       {children}
@@ -76,53 +76,23 @@ export default function Servicios() {
   return (
     <section
       id="servicios"
+      className="section-padding"
       style={{
-        padding: "6rem 2rem",
         backgroundColor: "var(--bg-secondary)",
         borderTop: "1px solid var(--border)",
       }}
     >
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <AnimatedSection>
-          <h2
-            style={{
-              fontSize: "2rem",
-              fontWeight: 700,
-              color: "var(--text-primary)",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Nuestra especialidad
-          </h2>
-          <div
-            style={{
-              width: "40px",
-              height: "3px",
-              backgroundColor: "var(--accent-purple)",
-              marginBottom: "3rem",
-            }}
-          />
-        </AnimatedSection>
+      <div className="section-container">
+        <AnimatedCard>
+          <h2 className="section-title">Nuestra especialidad</h2>
+          <div className="section-underline" />
+        </AnimatedCard>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "1.5rem",
-          }}
-        >
+        <div className="grid-2">
           {servicios.map((s) => (
-            <AnimatedSection key={s.title}>
+            <AnimatedCard key={s.title}>
               <div
-                style={{
-                  backgroundColor: "var(--bg-card)",
-                  border: "1px solid var(--border)",
-                  borderRadius: "12px",
-                  padding: "2rem",
-                  transition: "border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
-                  cursor: "default",
-                  height: "100%",
-                }}
+                className="card"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = "var(--accent-purple)";
                   e.currentTarget.style.transform = "translateY(-4px)";
@@ -134,43 +104,11 @@ export default function Servicios() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                <div
-                  style={{
-                    width: "48px",
-                    height: "48px",
-                    borderRadius: "10px",
-                    backgroundColor: "rgba(124, 58, 237, 0.1)",
-                    border: "1px solid rgba(124, 58, 237, 0.2)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "var(--accent-purple-light)",
-                    marginBottom: "1.25rem",
-                  }}
-                >
-                  {s.icon}
-                </div>
-                <h3
-                  style={{
-                    color: "var(--text-primary)",
-                    fontWeight: 600,
-                    fontSize: "1.1rem",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  {s.title}
-                </h3>
-                <p
-                  style={{
-                    color: "var(--text-secondary)",
-                    fontSize: "0.9rem",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {s.description}
-                </p>
+                <div className="card-icon">{s.icon}</div>
+                <h3 className="card-title">{s.title}</h3>
+                <p className="card-description">{s.description}</p>
               </div>
-            </AnimatedSection>
+            </AnimatedCard>
           ))}
         </div>
       </div>

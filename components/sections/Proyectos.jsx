@@ -26,7 +26,7 @@ const proyectos = [
   },
 ];
 
-function AnimatedCard({ children, delay }) {
+function AnimatedCard({ children, delay = 0 }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -57,59 +57,25 @@ export default function Proyectos() {
   return (
     <section
       id="proyectos"
+      className="section-padding"
       style={{
-        padding: "6rem 2rem",
         backgroundColor: "var(--bg-secondary)",
         borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
       }}
     >
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-
-        {/* Header */}
+      <div className="section-container">
         <AnimatedCard delay={0}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-between",
-              marginBottom: "3rem",
-            }}
-          >
+          <div className="proyectos-header">
             <div>
-              <h2
-                style={{
-                  fontSize: "2rem",
-                  fontWeight: 700,
-                  color: "var(--text-primary)",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Casos de éxito
-              </h2>
-              <div
-                style={{
-                  width: "40px",
-                  height: "3px",
-                  backgroundColor: "var(--accent-purple)",
-                  marginBottom: "0.75rem",
-                }}
-              />
+              <h2 className="section-title">Casos de éxito</h2>
+              <div className="section-underline" />
               <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
                 Soluciones reales para desafíos complejos.
               </p>
             </div>
             <a
               href="#"
-              style={{
-                color: "var(--accent-purple-light)",
-                textDecoration: "none",
-                fontSize: "0.9rem",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.4rem",
-                transition: "opacity 0.2s ease",
-              }}
+              className="proyectos-link"
               onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.7"; }}
               onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
             >
@@ -118,25 +84,11 @@ export default function Proyectos() {
           </div>
         </AnimatedCard>
 
-        {/* Cards */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "1.5rem",
-          }}
-        >
+        <div className="grid-3">
           {proyectos.map((p, i) => (
             <AnimatedCard key={p.title} delay={i * 0.15}>
               <div
-                style={{
-                  backgroundColor: "var(--bg-card)",
-                  border: "1px solid var(--border)",
-                  borderRadius: "12px",
-                  overflow: "hidden",
-                  transition: "border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
-                  cursor: "pointer",
-                }}
+                className="proyecto-card"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = p.color;
                   e.currentTarget.style.transform = "translateY(-4px)";
@@ -148,44 +100,27 @@ export default function Proyectos() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                {/* Imagen placeholder con gradiente único por proyecto */}
                 <div
+                  className="proyecto-imagen"
                   style={{
-                    height: "180px",
                     background: `linear-gradient(135deg, ${p.color}15 0%, var(--bg-secondary) 100%)`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    position: "relative",
-                    borderBottom: "1px solid var(--border)",
                   }}
                 >
                   <div
+                    className="proyecto-tag"
                     style={{
-                      position: "absolute",
-                      top: "1rem",
-                      left: "1rem",
                       backgroundColor: `${p.color}20`,
                       border: `1px solid ${p.color}50`,
-                      borderRadius: "999px",
-                      padding: "0.25rem 0.75rem",
-                      fontSize: "0.7rem",
                       color: p.color,
-                      fontWeight: 500,
                     }}
                   >
                     {p.tag}
                   </div>
                   <div
+                    className="proyecto-icon"
                     style={{
-                      width: "64px",
-                      height: "64px",
-                      borderRadius: "16px",
                       backgroundColor: `${p.color}20`,
                       border: `1px solid ${p.color}40`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
                     }}
                   >
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke={p.color} strokeWidth="1.5">
@@ -195,37 +130,17 @@ export default function Proyectos() {
                   </div>
                 </div>
 
-                {/* Contenido */}
-                <div style={{ padding: "1.5rem" }}>
-                  <h3
-                    style={{
-                      color: "var(--text-primary)",
-                      fontWeight: 600,
-                      fontSize: "1.1rem",
-                      marginBottom: "0.75rem",
-                    }}
-                  >
-                    {p.title}
-                  </h3>
-                  <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem", lineHeight: 1.6 }}>
+                <div className="proyecto-content">
+                  <h3 className="card-title">{p.title}</h3>
+                  <p className="card-description">
                     <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>Problema: </span>
                     {p.problema}{" "}
                     <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>Solución: </span>
                     {p.solucion}
                   </p>
                   <button
-                    style={{
-                      marginTop: "1.25rem",
-                      background: "none",
-                      border: "none",
-                      color: p.color,
-                      fontSize: "0.85rem",
-                      cursor: "pointer",
-                      padding: 0,
-                      fontFamily: "inherit",
-                      fontWeight: 500,
-                      transition: "opacity 0.2s ease",
-                    }}
+                    className="proyecto-btn"
+                    style={{ color: p.color }}
                     onMouseEnter={(e) => { e.target.style.opacity = "0.7"; }}
                     onMouseLeave={(e) => { e.target.style.opacity = "1"; }}
                   >

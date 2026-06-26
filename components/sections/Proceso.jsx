@@ -25,7 +25,7 @@ const pasos = [
   },
 ];
 
-function AnimatedCard({ children, delay }) {
+function AnimatedCard({ children, delay = 0 }) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -56,53 +56,23 @@ export default function Proceso() {
   return (
     <section
       id="proceso"
+      className="section-padding"
       style={{
-        padding: "6rem 2rem",
         backgroundColor: "var(--bg-primary)",
         borderTop: "1px solid var(--border)",
-        borderBottom: "1px solid var(--border)",
       }}
     >
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <div className="section-container">
         <AnimatedCard delay={0}>
-          <h2
-            style={{
-              fontSize: "2rem",
-              fontWeight: 700,
-              color: "var(--text-primary)",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Cómo trabajamos
-          </h2>
-          <div
-            style={{
-              width: "40px",
-              height: "3px",
-              backgroundColor: "var(--accent-purple)",
-              marginBottom: "3rem",
-            }}
-          />
+          <h2 className="section-title">Cómo trabajamos</h2>
+          <div className="section-underline" />
         </AnimatedCard>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "1.5rem",
-          }}
-        >
+        <div className="grid-4">
           {pasos.map((paso, i) => (
             <AnimatedCard key={paso.numero} delay={i * 0.15}>
               <div
-                style={{
-                  backgroundColor: "var(--bg-card)",
-                  border: "1px solid var(--border)",
-                  borderRadius: "12px",
-                  padding: "2rem",
-                  transition: "border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
-                  height: "100%",
-                }}
+                className="card"
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = "var(--accent-purple)";
                   e.currentTarget.style.transform = "translateY(-4px)";
@@ -114,36 +84,9 @@ export default function Proceso() {
                   e.currentTarget.style.boxShadow = "none";
                 }}
               >
-                <div
-                  style={{
-                    fontSize: "2rem",
-                    fontWeight: 800,
-                    color: "var(--white)",
-                    marginBottom: "1rem",
-                    letterSpacing: "-0.02em",
-                  }}
-                >
-                  {paso.numero}
-                </div>
-                <h3
-                  style={{
-                    color: "var(--accent-purple-light)",
-                    fontWeight: 600,
-                    fontSize: "1rem",
-                    marginBottom: "0.75rem",
-                  }}
-                >
-                  {paso.title}
-                </h3>
-                <p
-                  style={{
-                    color: "var(--text-secondary)",
-                    fontSize: "0.85rem",
-                    lineHeight: 1.6,
-                  }}
-                >
-                  {paso.description}
-                </p>
+                <div className="paso-numero">{paso.numero}</div>
+                <h3 className="paso-title">{paso.title}</h3>
+                <p className="card-description">{paso.description}</p>
               </div>
             </AnimatedCard>
           ))}

@@ -35,29 +35,52 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        padding: "6rem 2rem 4rem",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        gap: "4rem",
-      }}
-    >
+    <section id="hero" className="hero-section">
       {/* Texto izquierda */}
       <div
+        className="hero-text"
         style={{
-          flex: 1,
           opacity: animated ? 1 : 0,
           transform: animated ? "translateY(0)" : "translateY(30px)",
           transition: "opacity 0.7s ease, transform 0.7s ease",
         }}
       >
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            backgroundColor: "rgba(124, 58, 237, 0.1)",
+            border: "1px solid rgba(124, 58, 237, 0.3)",
+            borderRadius: "999px",
+            padding: "0.3rem 1rem",
+            marginBottom: "2rem",
+          }}
+        >
+          <div
+            style={{
+              width: "6px",
+              height: "6px",
+              borderRadius: "50%",
+              backgroundColor: "var(--accent-purple)",
+              boxShadow: "0 0 6px var(--accent-purple)",
+            }}
+          />
+          <span
+            style={{
+              color: "var(--accent-purple-light)",
+              fontSize: "0.75rem",
+              letterSpacing: "0.1em",
+              fontWeight: 500,
+            }}
+          >
+            INGENIERÍA CREATIVA
+          </span>
+        </div>
+
         <h1
           style={{
-            fontSize: "clamp(2.5rem, 3.5vw, 3rem)",
+            fontSize: "clamp(2rem, 3.5vw, 3rem)",
             fontWeight: 800,
             lineHeight: 1.1,
             marginBottom: "1.5rem",
@@ -69,14 +92,7 @@ export default function Hero() {
           tecnológicas para
           <br />
           empresas que quieren{" "}
-          <span
-            style={{
-              color: "var(--accent-purple-light)",
-              position: "relative",
-            }}
-          >
-            crecer.
-          </span>
+          <span style={{ color: "var(--accent-purple-light)" }}>crecer.</span>
         </h1>
 
         <p
@@ -147,11 +163,8 @@ export default function Hero() {
 
       {/* Dashboard derecha */}
       <div
+        className="hero-dashboard"
         style={{
-          flex: 1,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
           opacity: animated ? 1 : 0,
           transform: animated ? "translateY(0)" : "translateY(30px)",
           transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
@@ -169,7 +182,6 @@ export default function Hero() {
             boxShadow: "0 0 80px rgba(124, 58, 237, 0.12)",
           }}
         >
-          {/* Header del dashboard */}
           <div
             style={{
               display: "flex",
@@ -196,7 +208,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Barras de métricas */}
           {metrics.map((metric, i) => (
             <div key={metric.label} style={{ marginBottom: "1rem" }}>
               <div
@@ -233,7 +244,6 @@ export default function Hero() {
             </div>
           ))}
 
-          {/* Mini gráfica */}
           <div
             style={{
               marginTop: "1.5rem",

@@ -125,7 +125,6 @@ export default function Navbar() {
             cursor: "pointer",
             padding: "0.5rem",
             color: "var(--text-primary)",
-            display: "none",
           }}
         >
           {menuOpen ? (

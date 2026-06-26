@@ -28,3 +28,62 @@ body {
   font-family: var(--font-inter);
   -webkit-font-smoothing: antialiased;
 }
+
+@media (max-width: 768px) {
+  /* Hero */
+  #hero {
+    flex-direction: column;
+    padding: 6rem 1.5rem 3rem !important;
+    gap: 2rem !important;
+  }
+
+  #hero h1 {
+    font-size: 2rem !important;
+  }
+
+  /* Servicios */
+  #servicios > div > div[style*="repeat(2"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Proceso */
+  #proceso > div > div[style*="repeat(4"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Proyectos */
+  #proyectos > div > div[style*="repeat(3"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Nosotros */
+  #nosotros > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Contacto */
+  #contacto > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  #contacto > div > div > form > div[style*="repeat(2"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Footer */
+  footer > div > div[style*="2fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* General */
+  section {
+    padding: 4rem 1.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #hero h1 {
+    font-size: 1.75rem !important;
+  }
+}

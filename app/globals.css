@@ -335,6 +335,12 @@ body {
   box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
 }
 
+.form-error{
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+}
+
 /* ── FOOTER ── */
 .footer-grid {
   display: grid;

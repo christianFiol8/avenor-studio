@@ -29,16 +29,57 @@ function AnimatedCard({ children, delay = 0 }) {
   );
 }
 
+function validateForm(form) {
+  const errors = {};
+  if (!form.nombre.trim()) errors.nombre = "El nombre es requerido";
+  if (!form.email.trim()) {
+    errors.email = "El correo es requerido";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    errors.email = "El correo no es válido";
+  }
+  if (!form.mensaje.trim()) errors.mensaje = "El mensaje es requerido";
+  else if (form.mensaje.trim().length < 10) errors.mensaje = "El mensaje es muy corto";
+  return errors;
+}
+
 export default function Contacto() {
   const [form, setForm] = useState({ nombre: "", empresa: "", email: "", mensaje: "" });
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
   const [estado, setEstado] = useState("idle");
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const newForm = { ...form, [e.target.name]: e.target.value };
+    setForm(newForm);
+    if (touched[e.target.name]) {
+      const newErrors = validateForm(newForm);
+      setErrors(newErrors);
+    }
+  };
+
+  const handleBlur = (e) => {
+    setTouched({ ...touched, [e.target.name]: true });
+    const newErrors = validateForm(form);
+    setErrors(newErrors);
+    if (newErrors[e.target.name]) {
+      e.target.style.borderColor = "#ef4444";
+    } else {
+      e.target.style.borderColor = "var(--border)";
+    }
+  };
+
+  const handleFocus = (e) => {
+    e.target.style.borderColor = "var(--accent-purple)";
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const allTouched = { nombre: true, email: true, mensaje: true };
+    setTouched(allTouched);
+    const newErrors = validateForm(form);
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
     setEstado("enviando");
     try {
       const res = await fetch("/api/contacto", {
@@ -49,6 +90,8 @@ export default function Contacto() {
       if (res.ok) {
         setEstado("enviado");
         setForm({ nombre: "", empresa: "", email: "", mensaje: "" });
+        setTouched({});
+        setErrors({});
       } else {
         setEstado("error");
       }
@@ -57,15 +100,18 @@ export default function Contacto() {
     }
   };
 
-  const handleFocus = (e) => { e.target.style.borderColor = "var(--accent-purple)"; };
-  const handleBlur = (e) => { e.target.style.borderColor = "var(--border)"; };
+  const getInputStyle = (field) => ({
+    borderColor: touched[field] && errors[field]
+      ? "#ef4444"
+      : "var(--border)",
+  });
 
   return (
     <section
       id="contacto"
       className="section-padding"
       style={{
-        backgroundColor: "var(--bg-secondary)",
+        backgroundColor: "var(--bg-primary)",
         borderTop: "1px solid var(--border)",
       }}
     >
@@ -81,7 +127,7 @@ export default function Contacto() {
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
                 { icon: "✉", texto: "hola@avenor.studio" },
-                { icon: "☎", texto: "+52 612 233 6225" },
+                { icon: "☎", texto: "+52 123 456 7890" },
               ].map((item) => (
                 <div key={item.texto} className="contacto-info-item">
                   <div className="contacto-icon">{item.icon}</div>
@@ -95,7 +141,7 @@ export default function Contacto() {
             <form onSubmit={handleSubmit} className="contacto-form">
               <div className="grid-2">
                 <div>
-                  <label className="form-label">Nombre Completo</label>
+                  <label className="form-label">Nombre Completo *</label>
                   <input
                     name="nombre"
                     value={form.nombre}
@@ -103,9 +149,12 @@ export default function Contacto() {
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     placeholder="Juan Pérez"
-                    required
                     className="form-input"
+                    style={getInputStyle("nombre")}
                   />
+                  {touched.nombre && errors.nombre && (
+                    <p className="form-error">{errors.nombre}</p>
+                  )}
                 </div>
                 <div>
                   <label className="form-label">Empresa</label>
@@ -114,7 +163,7 @@ export default function Contacto() {
                     value={form.empresa}
                     onChange={handleChange}
                     onFocus={handleFocus}
-                    onBlur={handleBlur}
+                    onBlur={(e) => { e.target.style.borderColor = "var(--border)"; }}
                     placeholder="Tech Solutions Inc."
                     className="form-input"
                   />
@@ -122,7 +171,7 @@ export default function Contacto() {
               </div>
 
               <div>
-                <label className="form-label">Correo Electrónico</label>
+                <label className="form-label">Correo Electrónico *</label>
                 <input
                   name="email"
                   type="email"
@@ -131,13 +180,16 @@ export default function Contacto() {
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   placeholder="juan@empresa.com"
-                  required
                   className="form-input"
+                  style={getInputStyle("email")}
                 />
+                {touched.email && errors.email && (
+                  <p className="form-error">{errors.email}</p>
+                )}
               </div>
 
               <div>
-                <label className="form-label">Mensaje</label>
+                <label className="form-label">Mensaje *</label>
                 <textarea
                   name="mensaje"
                   value={form.mensaje}
@@ -145,10 +197,13 @@ export default function Contacto() {
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   placeholder="Cuéntanos sobre tu idea o problema..."
-                  required
                   rows={5}
                   className="form-input form-textarea"
+                  style={getInputStyle("mensaje")}
                 />
+                {touched.mensaje && errors.mensaje && (
+                  <p className="form-error">{errors.mensaje}</p>
+                )}
               </div>
 
               <button

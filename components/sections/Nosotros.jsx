@@ -1,12 +1,73 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
+function AnimatedCard({ children, delay = 0 }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(40px)",
+        transition: `opacity 0.6s ease ${delay}s, transform 0.6s ease ${delay}s`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function AnimatedCounter({ target }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setStarted(true); },
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!started) return;
+    let start = 0;
+    const duration = 1500;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      setCount(Math.floor(progress * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [started, target]);
+
+  return <span ref={ref}>{count}</span>;
+}
+
 export default function Nosotros() {
   return (
     <section
       id="nosotros"
       style={{
         padding: "6rem 2rem",
-        backgroundColor: "var(--bg-secondary)",
+        backgroundColor: "var(--bg-primary)",
+        borderTop: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border)",
       }}
     >
       <div
@@ -19,45 +80,51 @@ export default function Nosotros() {
           alignItems: "center",
         }}
       >
-        {/* Izquierda — métrica */}
-        <div
-          style={{
-            backgroundColor: "var(--bg-card)",
-            border: "1px solid var(--border)",
-            borderRadius: "16px",
-            padding: "3rem",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: "280px",
-          }}
-        >
+        {/* Izquierda — contador animado */}
+        <AnimatedCard delay={0}>
           <div
             style={{
-              fontSize: "5rem",
-              fontWeight: 800,
-              color: "var(--text-primary)",
-              lineHeight: 1,
+              backgroundColor: "var(--bg-card)",
+              border: "1px solid var(--border)",
+              borderRadius: "16px",
+              padding: "3rem",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "280px",
+              boxShadow: "0 0 60px rgba(124, 58, 237, 0.08)",
             }}
           >
-            100%
+            <div
+              style={{
+                fontSize: "5rem",
+                fontWeight: 800,
+                color: "var(--text-primary)",
+                lineHeight: 1,
+                display: "flex",
+                alignItems: "flex-start",
+              }}
+            >
+              <AnimatedCounter target={100} />
+              <span style={{ fontSize: "3rem", marginTop: "0.5rem" }}>%</span>
+            </div>
+            <div
+              style={{
+                color: "var(--text-secondary)",
+                fontSize: "0.8rem",
+                letterSpacing: "0.15em",
+                marginTop: "0.75rem",
+                textAlign: "center",
+              }}
+            >
+              COMPROMISO CON LA EXCELENCIA
+            </div>
           </div>
-          <div
-            style={{
-              color: "var(--text-secondary)",
-              fontSize: "0.8rem",
-              letterSpacing: "0.15em",
-              marginTop: "0.75rem",
-              textAlign: "center",
-            }}
-          >
-            COMPROMISO CON LA EXCELENCIA
-          </div>
-        </div>
+        </AnimatedCard>
 
         {/* Derecha — texto */}
-        <div>
+        <AnimatedCard delay={0.2}>
           <h2
             style={{
               fontSize: "2rem",
@@ -132,7 +199,7 @@ export default function Nosotros() {
               </div>
             ))}
           </div>
-        </div>
+        </AnimatedCard>
       </div>
     </section>
   );

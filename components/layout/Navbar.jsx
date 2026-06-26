@@ -30,9 +30,9 @@ export default function Navbar() {
         alignItems: "center",
         justifyContent: "space-between",
         transition: "all 0.3s ease",
-        backgroundColor: scrolled ? "rgba(10, 10, 15, 0.9)" : "transparent",
+        backgroundColor: scrolled ? "rgba(10, 10, 15, 0.9)" : "rgba(15, 15, 26, 0.8)",
         backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled ? "1px solid var(--border)" : "none",
+        borderBottom: "1px solid var(--border)",
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>

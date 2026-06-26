@@ -1,9 +1,23 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const metrics = [
+  { label: "Rendimiento", value: 92, color: "var(--accent-purple)" },
+  { label: "Conversiones", value: 78, color: "#06b6d4" },
+  { label: "Retención", value: 85, color: "#10b981" },
+];
+
+const bars = [40, 65, 45, 80, 55, 90, 70, 95, 60, 85];
 
 export default function Hero() {
   const dashboardRef = useRef(null);
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setAnimated(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const el = dashboardRef.current;
@@ -22,22 +36,28 @@ export default function Hero() {
 
   return (
     <section
-      id="hero"
       style={{
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        padding: "7rem 2rem 0 2rem",
+        padding: "6rem 2rem 4rem",
         maxWidth: "1200px",
         margin: "0 auto",
         gap: "4rem",
       }}
     >
       {/* Texto izquierda */}
-      <div style={{ flex: 1 }}>
+      <div
+        style={{
+          flex: 1,
+          opacity: animated ? 1 : 0,
+          transform: animated ? "translateY(0)" : "translateY(30px)",
+          transition: "opacity 0.7s ease, transform 0.7s ease",
+        }}
+      >
         <h1
           style={{
-            fontSize: "clamp(2.5rem, 5vw, 3.8rem)",
+            fontSize: "clamp(2.5rem, 3.5vw, 3rem)",
             fontWeight: 800,
             lineHeight: 1.1,
             marginBottom: "1.5rem",
@@ -49,7 +69,14 @@ export default function Hero() {
           tecnológicas para
           <br />
           empresas que quieren{" "}
-          <span style={{ color: "var(--accent-purple-light)" }}>crecer.</span>
+          <span
+            style={{
+              color: "var(--accent-purple-light)",
+              position: "relative",
+            }}
+          >
+            crecer.
+          </span>
         </h1>
 
         <p
@@ -77,10 +104,17 @@ export default function Hero() {
               textDecoration: "none",
               fontWeight: 600,
               fontSize: "0.95rem",
-              transition: "opacity 0.2s ease",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              boxShadow: "0 0 20px rgba(124, 58, 237, 0.3)",
             }}
-            onMouseEnter={(e) => { e.target.style.opacity = "0.85"; }}
-            onMouseLeave={(e) => { e.target.style.opacity = "1"; }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 0 30px rgba(124, 58, 237, 0.5)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 0 20px rgba(124, 58, 237, 0.3)";
+            }}
           >
             Agenda una consulta
           </a>
@@ -95,10 +129,16 @@ export default function Hero() {
               fontWeight: 600,
               fontSize: "0.95rem",
               border: "1px solid var(--border)",
-              transition: "border-color 0.2s ease",
+              transition: "border-color 0.2s ease, transform 0.2s ease",
             }}
-            onMouseEnter={(e) => { e.target.style.borderColor = "var(--accent-purple)"; }}
-            onMouseLeave={(e) => { e.target.style.borderColor = "var(--border)"; }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "var(--accent-purple)";
+              e.currentTarget.style.transform = "translateY(-2px)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "var(--border)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
           >
             Ver proyectos
           </a>
@@ -112,6 +152,9 @@ export default function Hero() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          opacity: animated ? 1 : 0,
+          transform: animated ? "translateY(0)" : "translateY(30px)",
+          transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
         }}
       >
         <div
@@ -123,7 +166,7 @@ export default function Hero() {
             border: "1px solid var(--border)",
             borderRadius: "16px",
             padding: "1.5rem",
-            boxShadow: "0 0 60px rgba(124, 58, 237, 0.15)",
+            boxShadow: "0 0 80px rgba(124, 58, 237, 0.12)",
           }}
         >
           {/* Header del dashboard */}
@@ -154,11 +197,7 @@ export default function Hero() {
           </div>
 
           {/* Barras de métricas */}
-          {[
-            { label: "Rendimiento", value: 92, color: "var(--accent-purple)" },
-            { label: "Conversiones", value: 78, color: "#06b6d4" },
-            { label: "Retención", value: 85, color: "#10b981" },
-          ].map((metric) => (
+          {metrics.map((metric, i) => (
             <div key={metric.label} style={{ marginBottom: "1rem" }}>
               <div
                 style={{
@@ -184,9 +223,10 @@ export default function Hero() {
                 <div
                   style={{
                     height: "100%",
-                    width: `${metric.value}%`,
+                    width: animated ? `${metric.value}%` : "0%",
                     backgroundColor: metric.color,
                     borderRadius: "2px",
+                    transition: `width 1s ease ${0.5 + i * 0.15}s`,
                   }}
                 />
               </div>
@@ -203,17 +243,16 @@ export default function Hero() {
               gap: "6px",
             }}
           >
-            {[40, 65, 45, 80, 55, 90, 70, 95, 60, 85].map((h, i) => (
+            {bars.map((h, i) => (
               <div
                 key={i}
                 style={{
                   flex: 1,
-                  height: `${h}%`,
+                  height: animated ? `${h}%` : "0%",
                   backgroundColor:
-                    i === 9
-                      ? "var(--accent-purple)"
-                      : "rgba(124, 58, 237, 0.3)",
+                    i === 9 ? "var(--accent-purple)" : "rgba(124, 58, 237, 0.3)",
                   borderRadius: "3px 3px 0 0",
+                  transition: `height 0.6s ease ${0.8 + i * 0.05}s`,
                 }}
               />
             ))}

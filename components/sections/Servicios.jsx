@@ -78,7 +78,7 @@ export default function Servicios() {
       id="servicios"
       className="section-padding"
       style={{
-        backgroundColor: "var(--bg-secondary)",
+        backgroundColor: "var(--bg-primary)",
         borderTop: "1px solid var(--border)",
       }}
     >

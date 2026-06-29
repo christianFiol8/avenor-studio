@@ -1,79 +1,76 @@
 "use client"
-const columnas = [
-  {
-    titulo: "Compañía",
-    links: [
-      { label: "Servicios", href: "#servicios" },
-      { label: "Proyectos", href: "#proyectos" },
-      { label: "Sobre Nosotros", href: "#nosotros" },
-    ],
-  },
-  {
-    titulo: "Social",
-    links: [
-      { label: "LinkedIn", href: "#" },
-      { label: "Instagram", href: "#" },
-      { label: "Twitter (X)", href: "#" },
-    ],
-  },
-  {
-    titulo: "Contacto",
-    links: [
-      { label: "WhatsApp", href: "#" },
-      { label: "Email", href: "#" },
-      { label: "Agendar llamada", href: "#" },
-    ],
-  },
-];
-
 export default function Footer() {
   return (
     <footer
       style={{
         backgroundColor: "var(--bg-primary)",
         borderTop: "1px solid var(--border)",
-        padding: "4rem 2rem 2rem",
+        padding: "2rem",
       }}
     >
       <div className="section-container">
-        <div className="footer-grid">
-          <div>
-            <div className="footer-logo">
-              <div className="footer-logo-icon" />
-              <div>
-                <span className="footer-logo-text">AVENOR</span>
-                <div className="footer-logo-sub">STUDIO</div>
-              </div>
+        <div className="footer-simple">
+
+          {/* Logo igual que Navbar */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                background: "var(--accent-purple)",
+                clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
+                flexShrink: 0,
+              }}
+            />
+            <div>
+              <span
+                style={{
+                  color: "var(--text-primary)",
+                  fontWeight: 700,
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.1em",
+                  display: "block",
+                }}
+              >
+                AVENOR
+              </span>
+              <span
+                style={{
+                  color: "var(--text-secondary)",
+                  fontSize: "0.55rem",
+                  letterSpacing: "0.2em",
+                  display: "block",
+                }}
+              >
+                STUDIO
+              </span>
             </div>
-            <p className="footer-desc">
-              Construyendo el futuro digital de las empresas con ingeniería de precisión.
-            </p>
           </div>
 
-          {columnas.map((col) => (
-            <div key={col.titulo}>
-              <h4 className="footer-col-title">{col.titulo}</h4>
-              <div className="footer-links">
-                {col.links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="footer-link"
-                    onMouseEnter={(e) => { e.target.style.color = "var(--text-primary)"; }}
-                    onMouseLeave={(e) => { e.target.style.color = "var(--text-secondary)"; }}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+          {/* Instagram */}
+          <a
+            href="#"
+            aria-label="Instagram"
+            style={{
+              color: "var(--text-secondary)",
+              transition: "color 0.2s ease",
+              display: "flex",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--accent-purple-light)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-secondary)"; }}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="5" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+            </svg>
+          </a>
 
-        <div className="footer-bottom">
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.8rem" }}>
-            © 2026 Avenor Studio. Digital solutions for the engineering-led era.
+          {/* Copyright */}
+          <p className="footer-copyright">
+            © 2026 Avenor Studio. Todos los derechos reservados.
           </p>
+
         </div>
       </div>
     </footer>

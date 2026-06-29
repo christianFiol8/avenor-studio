@@ -45,39 +45,6 @@ export default function Hero() {
           transition: "opacity 0.7s ease, transform 0.7s ease",
         }}
       >
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            backgroundColor: "rgba(124, 58, 237, 0.1)",
-            border: "1px solid rgba(124, 58, 237, 0.3)",
-            borderRadius: "999px",
-            padding: "0.3rem 1rem",
-            marginBottom: "2rem",
-          }}
-        >
-          <div
-            style={{
-              width: "6px",
-              height: "6px",
-              borderRadius: "50%",
-              backgroundColor: "var(--accent-purple)",
-              boxShadow: "0 0 6px var(--accent-purple)",
-            }}
-          />
-          <span
-            style={{
-              color: "var(--accent-purple-light)",
-              fontSize: "0.75rem",
-              letterSpacing: "0.1em",
-              fontWeight: 500,
-            }}
-          >
-            INGENIERÍA CREATIVA
-          </span>
-        </div>
-
         <h1
           style={{
             fontSize: "clamp(2rem, 3.5vw, 3rem)",

@@ -46,14 +46,11 @@ export default function Navbar() {
             textDecoration: "none",
           }}
         >
-          <div
-            style={{
-              width: "28px",
-              height: "28px",
-              background: "var(--accent-purple)",
-              clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
-            }}
-          />
+        <img
+          src="/assets/isotipo.png"
+          alt="Avenor Studio"
+          style={{ width: "32px", height: "32px", objectFit: "contain" }}
+        />
           <div>
             <span
               style={{

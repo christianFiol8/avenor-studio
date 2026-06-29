@@ -13,14 +13,10 @@ export default function Footer() {
 
           {/* Logo igual que Navbar */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                background: "var(--accent-purple)",
-                clipPath: "polygon(50% 0%, 100% 100%, 0% 100%)",
-                flexShrink: 0,
-              }}
+            <img
+              src="/assets/isotipo.png"
+              alt="Avenor Studio"
+              style={{ width: "32px", height: "32px", objectFit: "contain" }}
             />
             <div>
               <span
@@ -32,7 +28,7 @@ export default function Footer() {
                   display: "block",
                 }}
               >
-                AVENOR
+                AVENOR  
               </span>
               <span
                 style={{

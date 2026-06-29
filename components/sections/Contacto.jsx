@@ -127,7 +127,7 @@ export default function Contacto() {
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {[
                 { icon: "✉", texto: "hola@avenor.studio" },
-                { icon: "☎", texto: "+52 123 456 7890" },
+                { icon: "☎", texto: "+52 612 233 6225" },
               ].map((item) => (
                 <div key={item.texto} className="contacto-info-item">
                   <div className="contacto-icon">{item.icon}</div>

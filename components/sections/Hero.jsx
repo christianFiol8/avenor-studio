@@ -134,7 +134,7 @@ export default function Hero() {
           >
             Agenda una consulta
           </a>
-          <a
+          {/*<a
             href="#proyectos"
             style={{
               backgroundColor: "transparent",
@@ -157,7 +157,7 @@ export default function Hero() {
             }}
           >
             Ver proyectos
-          </a>
+          </a> */}
         </div>
       </div>
 

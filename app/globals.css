@@ -458,11 +458,28 @@ body {
     padding: 5rem 1.5rem 3rem !important;
     gap: 2rem !important;
     min-height: auto !important;
+    max-width: 100% !important;
+  }
+
+  .hero-dashboard > div {
+  max-width: 100% !important;
   }
 
   .hero-text{
     width: 100%;
     flex: none !important;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-text p {
+  max-width: 100% !important;
+  }
+
+  .hero-text > div:last-child {
+    justify-content: center;
   }
 
   .hero-dashboard{

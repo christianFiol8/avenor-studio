@@ -17,6 +17,16 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuOpen && !e.target.closest("header") && !e.target.closest(".mobile-menu")) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [menuOpen]);
+
   return (
     <>
       <header
@@ -47,7 +57,7 @@ export default function Navbar() {
           }}
         >
         <img
-          src="/assets/isotipo.png"
+          src="/assets/isotipo.webp"
           alt="Avenor Studio"
           style={{ width: "32px", height: "32px", objectFit: "contain" }}
         />
@@ -141,6 +151,7 @@ export default function Navbar() {
       {/* Menú móvil */}
       {menuOpen && (
         <div
+          className="mobile-menu"
           style={{
             position: "fixed",
             top: "65px",

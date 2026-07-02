@@ -14,7 +14,7 @@ export default function Footer() {
           {/* Logo igual que Navbar */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <img
-              src="/assets/isotipo.png"
+              src="/assets/isotipo.webp"
               alt="Avenor Studio"
               style={{ width: "32px", height: "32px", objectFit: "contain" }}
             />

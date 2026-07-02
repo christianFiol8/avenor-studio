@@ -1,5 +1,5 @@
 export default function robots() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://avenor-studio.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://avenor-studio-2u5w.vercel.app";
   return {
     rules: {
       userAgent: "*",

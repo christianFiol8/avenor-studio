@@ -14,8 +14,8 @@ export async function POST(request) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: "Avenor Studio <onboarding@resend.dev>",
-      to: "fiolchristian96@gmail.com",
+      from: "Avenor Studio <contacto@avenorstudio.tech>",
+      to: "contacto@avenorstudio.tech",
       replyTo: email,
       subject: `Nuevo contacto de ${nombre} — Avenor Studio`,
       html: `

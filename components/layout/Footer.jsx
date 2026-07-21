@@ -45,7 +45,7 @@ export default function Footer() {
 
           {/* Instagram */}
           <a
-            href="#"
+            href="https://www.instagram.com/avenorstudiomx?igsh=MTZ5cHZ3N2xn-OTh3cQ=="
             aria-label="Instagram"
             style={{
               color: "var(--text-secondary)",
